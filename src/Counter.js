@@ -26,6 +26,33 @@ class Counter extends React.Component {
         })
     }
 
+    componentDidMount() {
+
+        fetch('https://simple-react-app-with-login.firebaseio.com/users.json')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    number: data
+                })
+            })
+    }
+
+    componentDidUpdate() {
+        const request = {
+            method: 'PUT',
+            body: JSON.stringify(this.state.number)
+        }
+
+        fetch('https://simple-react-app-with-login.firebaseio.com/users/.json', request)
+            .then(response => {
+
+                this.setState({
+                    number: this.state.number
+                })
+            })
+    }
+
+
     render() {
         return (
             <div>
